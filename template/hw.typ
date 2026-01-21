@@ -1,4 +1,5 @@
-#import "@preview/ecnu-math-hwk:0.1.0": *
+// #import "@preview/ecnu-math-hwk:0.1.0": *
+#import "../lib.typ": *
 #set text(lang: "zh")
 
 #show: hwk.with(author: "小花狮", course: [Typst 入门], hwk-id: 1, stu-id: 810975)
@@ -131,16 +132,16 @@
   设 $cal(A) in End(RR^(3))$，定义如下
   $
     cases(
-      cal(A)(eta_1) & =(-5,0,3)^(tack.b) \
-      cal(A)(eta_2) & =(0,-1,6)^(tack.b) \
+      cal(A)(eta_1) & =(-5,0,3)^(tack.b),
+      cal(A)(eta_2) & =(0,-1,6)^(tack.b),
       cal(A)(eta_3) & =(-5,-1,9)^(tack.b),
     )
   $
   其中，
   $
     cases(
-      eta_1 & =(-1,0,2)^(tack.b) \
-      eta_2 & =(0,1,1)^(tack.b) \
+      eta_1 & =(-1,0,2)^(tack.b),
+      eta_2 & =(0,1,1)^(tack.b),
       eta_3 & =(3,-1,0)^(tack.b)
     )
   $

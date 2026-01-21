@@ -1,4 +1,4 @@
-#import "@preview/itemize:0.1.2" as el
+#import "@preview/itemize:0.2.0" as _itemize
 
 #let cn-font-serif = "Source Han Serif SC"
 #let en-font-serif = "New Computer Modern"
@@ -18,11 +18,6 @@
     zh: "解答",
     en: "Solution.",
   ),
-)
-
-#let scr(it) = text(
-  stylistic-set: 1,
-  box($cal(it)$),
 )
 
 #let problem-counter = counter("problem")
@@ -74,7 +69,7 @@
 
   // 给带有 label 的公式编号
   show math.equation: it => {
-    if it.fields().keys().contains("label") {
+    if it.fields().keys().contains("label") and it.label != _itemize.adv.native-format-label{
       math.equation(
         block: true,
         numbering: n => {
@@ -108,8 +103,8 @@
   show "。": ". "
   show raw: set text(font: ("Consolas Nerd Font", cn-font-sans), weight: 400)
 
-  show ref: el.ref-enum
-  show: el.default-enum-list
+  show ref: _itemize.ref-enum
+  show: _itemize.default-enum-list
   set enum(numbering: "(1)", full: true)
 
   body
