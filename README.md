@@ -1,93 +1,240 @@
-# ECNU Math Homework 
+# ECNU Math Homework
 
-为华东师范大学写的作业模板，主要针对 问题-解答/证明的形式。
+**English** | [中文](README.zh-CN.md)
 
-## 特点
-- 支持中英文
-- 格式简约美观
-- 为每个问题中的行间公式进行编号，可以直接引用。
-- 大大的校徽水印
-
-适用于提交 问题-解答/证明 类型的 pdf 作业
-
-## 预览
-| 1                    | 2                  | 3                |
-| ----------------------- | --------------------- | --------------------- |
-| ![封面](pic/1.png) | ![内容页1](pic/2.png) | ![内容页2](pic/3.png) |
-
-可见仓库中的 `template/hw.typ` 文件。
-
-注意：中英文语言的设置要在 `show: hwk` 之前。
-
-## 使用
-
-
-可使用 Typst Universe 源导入：
-
-```typ
-#import "@preview/ecnu-math-hwk:0.1.0": *
-```
-
-也可克隆仓库到工作目录下进行导入。
-
-```typ
-#import "ecnu-math-hwk/lib.typ": *
-```
-
-字体没有内置，您可能需要安装以下字体：
-
-```typ
-#let needed-font = (
-    "Source Han Serif SC",
-    "New Computer Modern",
-    "Source Han Sans SC",
-    "New Computer Modern Sans"
-)
-```
-
-注意：在一般情况下使用校徽，应尽量使用提供的光盘电子文件，不建议重绘，尽量避免在重.绘中出现误差。
-
----
-
-## Features
-- Supports both Chinese and English
-- Simple and elegant format
-- Each display formula in a problem is numbered and can be referenced directly.
-- Large ECNU watermark
-
-Suitable for submitting pdf homework in the form of problem-solution/proof.
+A clean [Typst](https://typst.app/) template for East China Normal University mathematics homework. It is designed for assignments organized as problems followed by solutions or proofs.
 
 ## Preview
-| 1                    | 2                  | 3                |
-| ----------------------- | --------------------- | --------------------- |
-| ![cover page](pic/1.png) | ![content page 1](pic/2.png) | ![content page 2](pic/3.png) |
 
-codes can be found at the `template/hw.typ` file in the repository.
+| Page 1 | Page 2 | Page 3 |
+| --- | --- | --- |
+| ![English example, page 1](pic/1.png) | ![English example, page 2](pic/2.png) | ![English example, page 3](pic/3.png) |
 
-Note: The language setting must be set before `show: hwk`.
+The source used to generate these images is available at [`template/hw.typ`](template/hw.typ).
 
-## Usage
-You can import it using the Typst Universe source:
+## Features
 
-```typ
-#import "@preview/ecnu-math-hwk:0.1.0": *
+- Problem, solution, and proof blocks with automatic numbering
+- Equation numbers scoped to each problem
+- Direct references to numbered equations
+- English and Chinese labels
+- A4 page layout with a title area, running header, and page numbers
+- Optional ECNU logo watermark or a user-defined page background
+- Styled enumerations and nested lists
+
+## Requirements
+
+- Typst 0.15.1 or later
+- The fonts listed in [Fonts](#fonts) for the intended appearance
+
+## Quick start
+
+Import the published package from Typst Universe:
+
+```typst
+#import "@preview/ecnu-math-hwk:0.1.1": *
 ```
-Or clone the repository to your working directory for import.
 
-```typ
+To work from a local clone instead:
+
+```typst
 #import "ecnu-math-hwk/lib.typ": *
 ```
 
-The fonts are not built-in, you may need to install the following fonts:
+Create a document by setting its language before applying the template:
 
-```typ
-#let needed-font = (
-    "Source Han Serif SC",
-    "New Computer Modern",
-    "Source Han Sans SC",
-    "New Computer Modern Sans"
+```typst
+#import "@preview/ecnu-math-hwk:0.1.1": *
+
+#set text(lang: "en")
+
+#show: hwk.with(
+  author: "Alex Chen",
+  stu-id: 10245501401,
+  course: [Linear Algebra],
+  hwk-id: 1,
+)
+
+#problem[
+  Prove that the sum of two even integers is even.
+]
+
+#proof[
+  Write the integers as $2m$ and $2n$. Their sum is
+  $2m + 2n = 2(m+n)$, which is even.
+]
+```
+
+> The language must be set before `#show: hwk.with(...)` so that generated labels use the correct language.
+
+## Template options
+
+Pass these named arguments to `hwk.with(...)`:
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `title` | `none` | Document title. When omitted, the template builds one from the course and homework number. |
+| `course` | `"course"` | Course name displayed in the generated title. Strings and content are accepted. |
+| `hwk-id` | `0` | Homework or assignment number. |
+| `author` | `"author"` | Student name. |
+| `stu-id` | `1234567890` | Student ID. |
+| `watermark` | `"default"` | Page background. See [Watermarks](#watermarks). |
+
+For example, a custom title can be supplied as content:
+
+```typst
+#show: hwk.with(
+  title: [Linear Algebra — Problem Set 3],
+  author: "Alex Chen",
+  stu-id: 10245501401,
 )
 ```
 
-Note: In general, when using the school emblem, try to use the electronic files provided on the CD. Redrawing is not recommended, and try to avoid errors in redrawing.
+### Watermarks
 
+The `watermark` option has three modes:
+
+```typst
+// Use the built-in ECNU logo.
+#show: hwk.with(watermark: "default")
+
+// Disable the page background.
+#show: hwk.with(watermark: none)
+
+// Use arbitrary Typst content as the page background.
+#show: hwk.with(
+  watermark: align(
+    center + horizon,
+    text(size: 52pt, fill: rgb("#dddddd"))[DRAFT],
+  ),
+)
+```
+
+An image can also be used as a custom watermark:
+
+```typst
+#show: hwk.with(
+  watermark: image("assets/my-watermark.svg", width: 65%),
+)
+```
+
+## Writing homework
+
+### Problems, solutions, and proofs
+
+Use the three exported block functions directly:
+
+```typst
+#problem[
+  Evaluate $integral_0^1 x^2 dif x$.
+]
+
+#solution[
+  $integral_0^1 x^2 dif x = [x^3/3]_0^1 = 1/3$.
+]
+
+#problem[
+  Prove that $sqrt(2)$ is irrational.
+]
+
+#proof[
+  Assume the contrary and derive a contradiction from a fraction in lowest terms.
+]
+```
+
+Each `problem` advances the problem counter and resets the equation counter. A `proof` automatically places a filled square at its end.
+
+### Numbered equations and references
+
+Attach a label to a display equation to number it:
+
+```typst
+#problem[
+  Consider
+  $
+    A x = b.
+  $<linear-system>
+]
+
+#solution[
+  Equation @linear-system can be solved by Gaussian elimination.
+]
+```
+
+The equation number includes the current problem number. Equation-reference prefixes are localized for English and Chinese documents.
+
+### Lists
+
+Typst's normal list syntax works inside all blocks:
+
+```typst
+#problem[
+  Complete both tasks:
+
+  + Compute the determinant.
+  + Find the rank.
+]
+```
+
+## Language
+
+Set `text.lang` to `"en"` or `"zh"` before applying `hwk`:
+
+```typst
+// English
+#set text(lang: "en")
+#show: hwk.with(...)
+```
+
+```typst
+// Chinese
+#set text(lang: "zh")
+#show: hwk.with(...)
+```
+
+This controls the generated problem, solution, proof, and equation-reference labels.
+
+## Fonts
+
+Fonts are not bundled with the package. For the intended appearance, install:
+
+- Source Han Serif SC
+- Source Han Sans SC
+- New Computer Modern
+- New Computer Modern Sans
+- Consolas Nerd Font (used for raw/code text; Typst falls back if unavailable)
+
+You can inspect the fonts visible to Typst with:
+
+```sh
+typst fonts
+```
+
+## Compile the example
+
+From the repository root:
+
+```sh
+typst compile template/hw.typ
+```
+
+The complete English example demonstrates equations, references, proofs, lists, multi-page headers, and the default watermark.
+
+## Repository layout
+
+```text
+.
+├── assets/logo.svg      # Default ECNU watermark
+├── lib.typ              # Public template entry point
+├── utils.typ            # Block styles and numbering helpers
+├── template/hw.typ      # Full English example
+└── pic/                 # README preview images
+```
+
+## ECNU logo
+
+When using the university emblem, prefer official electronic artwork supplied by ECNU. Redrawing the emblem may introduce inaccuracies and should be avoided.
+
+## License
+
+This project is released under the [MIT License](LICENSE).

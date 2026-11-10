@@ -1,11 +1,18 @@
 #import "utils.typ": *
 
-#let hwk(title: none, course: "course", hwk-id: 0, author: "author", stu-id: 20050910, body) = context {
+#let hwk(
+  title: none,
+  course: "course",
+  hwk-id: 0,
+  author: "author",
+  stu-id: 1234567890,
+  watermark: "default",
+  body,
+) = context {
   show: show-math-format
   show: show-common-format
 
   set text(font: (en-font-serif, cn-font-serif), weight: 300, size: 10pt)
-
 
   let suf = " Solution"
   if text.lang == "zh" { suf = " 解答" }
@@ -15,10 +22,16 @@
   }
   set document(title: _title)
 
+  let page-background = if watermark == "default" {
+    image("./assets/logo.svg")
+  } else {
+    watermark
+  }
+
   set page(
     paper: "a4",
     numbering: "1",
-    background: image("./assets/logo.svg"),
+    background: page-background,
     header: context {
       if here().page() == 1 {
         return
@@ -26,7 +39,7 @@
       box(outset: 4pt, stroke: (bottom: 0.5pt + luma(220)))[#text(font: (
           en-font-serif,
           cn-font-serif,
-        ))[#title --- #author] #h(1fr) #counter(page).display()]
+        ))[#_title #sym.triangle.filled.small.r #author] #h(1fr) #counter(page).display()]
     },
     footer: context {
       // 仅在第一页显示页脚页码
