@@ -183,13 +183,13 @@ Set `text.lang` to `"en"` or `"zh"` before applying `hwk`:
 ```typst
 // English
 #set text(lang: "en")
-#show: hwk.with(...)
+#show: hwk.with(author: "Alex Chen")
 ```
 
 ```typst
 // Chinese
 #set text(lang: "zh")
-#show: hwk.with(...)
+#show: hwk.with(author: "张同学")
 ```
 
 This controls the generated problem, solution, proof, and equation-reference labels.

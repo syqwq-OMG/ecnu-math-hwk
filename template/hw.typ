@@ -1,5 +1,4 @@
-// #import "@preview/ecnu-math-hwk:0.1.1": *
-#import "../lib.typ": *
+#import "@preview/ecnu-math-hwk:0.1.1": *
 #set text(lang: "en")
 
 #show: hwk.with(author: "Fuhan", course: [Linear Algebra], hwk-id: 1, stu-id: 10245501401)

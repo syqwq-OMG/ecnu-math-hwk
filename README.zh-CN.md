@@ -183,13 +183,13 @@
 ```typst
 // 英文
 #set text(lang: "en")
-#show: hwk.with(...)
+#show: hwk.with(author: "Alex Chen")
 ```
 
 ```typst
 // 中文
 #set text(lang: "zh")
-#show: hwk.with(...)
+#show: hwk.with(author: "张同学")
 ```
 
 该设置会控制 Problem/问题、Solution/解答、Proof/证明以及公式引用标签所使用的语言。
